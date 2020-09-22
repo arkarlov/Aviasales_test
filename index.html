@@ -1,62 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
-</head>
-<body>
-    <div class="page-container">
-        <header class="header">
-            <div class="logo">
-                <img src="img/Logo.svg" alt="logo" class="logo__image">
-            </div>
-        </header>
-        <div class="main-container">
-            <section class="filter">
-                <p class="fiiter_name">Количество пересадок</p>
-                <label class="filter__item checkbox">
-                    <input type="checkbox" name="filter" id="filter-all" class="input-default">
-                    <span class="checkbox__custom"></span>
-                    <span class="checkbox__text">Все</span>
-                </label>
-                <label class="filter__item checkbox">
-                    <input type="checkbox" name="filter" id="filter-0" class="input-default">
-                    <span class="checkbox__custom"></span>
-                    <span class="checkbox__text">Без пересадок</span>
-                </label>
-                <label class="filter__item checkbox">
-                    <input type="checkbox" name="filter" id="filter-1" class="input-default">
-                    <span class="checkbox__custom"></span>
-                    <span class="checkbox__text">1 пересадка</span>
-                </label>
-                <label class="filter__item checkbox">
-                    <input type="checkbox" name="filter" id="filter-2" class="input-default">
-                    <span class="checkbox__custom"></span>
-                    <span class="checkbox__text">2 пересадки</span>
-                </label>
-                <label class="filter__item checkbox">
-                    <input type="checkbox" name="filter" id="filter-3" class="input-default">
-                    <span class="checkbox__custom"></span>
-                    <span class="checkbox__text">3 пересадки</span>
-                </label>
-            </section>
-            <div class="sorter">
-                <label class="sorter__item">
-                    <input type="radio" name="sorter" id="cheapest" class="input-default">
-                    <span class="sorter__text">Самый дешевый</span>
-                </label>
-                <label class="sorter__item">
-                    <input type="radio" name="sorter" id="fastest" class="input-default">
-                    <span class="sorter__text">Самый быстрый</span>
-                </label>
-            </div>
-            <section class="tickets">
-                <div class="ticket__item">
-                    
-                </div>
-            </section>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- header -->
+      <header class="layout__header">
+        <a href="https://www.aviasales.ru/" target="_blank" class="logo">
+          <img src="img/Logo.svg" alt="logo" />
+        </a>
+      </header>
+
+      <!-- filter sidebar -->
+      <aside class="layout__sidebar filter-box">
+        <p class="filter-box__title">Количество пересадок</p>
+        <input
+          type="checkbox"
+          name="filter"
+          value="filter-all"
+          id="filter-all"
+          class="input-default"
+          checked
+        />
+        <label for="filter-all" class="filter-box__item check-box">
+          <span class="check-box__text">Все</span>
+        </label>
+        <input
+          type="checkbox"
+          name="filter"
+          value="filter-0"
+          id="filter-0"
+          class="input-default"
+        />
+        <label for="filter-0" class="filter-box__item check-box">
+          <span class="check-box__text">Без пересадок</span>
+        </label>
+        <input
+          type="checkbox"
+          name="filter"
+          value="filter-1"
+          id="filter-1"
+          class="input-default"
+        />
+        <label for="filter-1" class="filter-box__item check-box">
+          <span class="check-box__text">1 пересадка</span>
+        </label>
+        <input
+          type="checkbox"
+          name="filter"
+          value="filter-2"
+          id="filter-2"
+          class="input-default"
+        />
+        <label for="filter-2" class="filter-box__item check-box">
+          <span class="check-box__text">2 пересадки</span>
+        </label>
+        <input
+          type="checkbox"
+          name="filter"
+          value="filter-3"
+          id="filter-3"
+          class="input-default"
+        />
+        <label for="filter-3" class="filter-box__item check-box">
+          <span class="check-box__text">3 пересадки</span>
+        </label>
+      </aside>
+
+      <!-- main block -->
+      <main class="layout__main">
+        <!-- sort tickets -->
+        <div class="sort-box">
+          <label class="sort-box__item">
+            <input
+              type="radio"
+              name="sort-box"
+              value="cheapest"
+              id="cheapest"
+              class="input-default"
+              checked
+            />
+            <span class="sort-box__text">Самый дешевый</span>
+          </label>
+          <label class="sort-box__item">
+            <input
+              type="radio"
+              name="sort-box"
+              value="fastest"
+              id="fastest"
+              class="input-default"
+            />
+            <span class="sort-box__text">Самый быстрый</span>
+          </label>
         </div>
+        <!-- tickets -->
+        <section class="tickets">
+          <article class="tickets__item ticket">
+            <header class="ticket__header">
+              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+            </header>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="tickets__item ticket">
+            <header class="ticket__header">
+              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+            </header>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+          </article>
+          <article class="tickets__item ticket">
+            <header class="ticket__header">
+              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+            </header>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+          </article>
+          <article class="tickets__item ticket">
+            <header class="ticket__header">
+              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+            </header>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+          </article>
+          <article class="tickets__item ticket">
+            <header class="ticket__header">
+              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+            </header>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+            <div class="ticket__details ticket-route">
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-title">MOW – HKT</p>
+                <p class="ticket-route__value route-time">10:45 – 08:00</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label">В пути</p>
+                <p class="ticket-route__value route-lenght">21ч 15м</p>
+              </div>
+              <div class="ticket-route__details">
+                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__value route-stops">HKG, JNB</p>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
     </div>
-</body>
+  </body>
 </html>

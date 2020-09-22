@@ -1,0 +1,245 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  color: #4a4a4a;
+}
+
+.layout {
+  margin: 0 auto;
+  padding-left: 103px;
+  padding-right: 103px;
+  padding-bottom: 100px;
+  max-width: 960px;
+  background: #f3f7fa;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.layout__header {
+  flex: 1 0 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.layout__sidebar {
+  flex: 0 0 232px;
+}
+
+.layout__main {
+  flex: 0 0 502px;
+}
+
+/* header logo */
+.logo {
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* filter sidebar */
+.filter-box {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-box__title {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* скрываем дефолтные инпуты */
+.input-default {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+.check-box {
+  width: 100%;
+  height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* меняем курсор на активных элементах */
+.check-box:hover,
+.sort-box__item:hover,
+.ticket:hover {
+  cursor: url(img/Cursor.png), grab;
+}
+
+.check-box__text {
+  font-size: 13px;
+  line-height: 40px;
+  margin-left: 30px;
+  position: relative;
+}
+
+/* задаем кастомный чекбокс */
+.check-box__text::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 1px solid #9abbce;
+  border-radius: 2px;
+}
+
+.filter-box input:focus + .check-box,
+.check-box:hover {
+  background: #f1fcff;
+}
+
+.filter-box input:checked + .check-box > .check-box__text::before {
+  border-color: #2196f3;
+  background-image: url(img/Shape.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* sort tickets */
+.sort-box {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.sort-box__item {
+  flex: 1 0 50%;
+  height: 50px;
+}
+
+.sort-box__text {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border: 1px solid #dfe5ec;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+}
+
+.sort-box__item:first-child .sort-box__text {
+  border-radius: 5px 0px 0px 5px;
+}
+.sort-box__item:last-child .sort-box__text {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.sort-box__item input:checked + .sort-box__text {
+  background-color: #2196f3;
+  border-color: #2196f3;
+  color: #ffffff;
+}
+
+.sort-box__item:hover .sort-box__text {
+  background-color: #f1fcff;
+  border-color: #2196f3;
+}
+
+/* tickets */
+
+.tickets {
+  display: flex;
+  flex-direction: column;
+}
+
+.tickets__item {
+  margin-bottom: 20px;
+}
+
+.ticket {
+  padding: 20px;
+  width: 502px;
+  height: 184px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.ticket:hover {
+  background-color: #f1fcff;
+}
+
+.ticket__header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket__price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  color: #2196f3;
+}
+
+.ticket__logo {
+  margin-right: 30px;
+}
+
+.ticket__details {
+  margin-bottom: 10px;
+}
+
+.ticket-route {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ticket-route__details {
+  flex: 0 0 140px;
+}
+
+.ticket-route__label {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #a0b0b9;
+}
+
+.ticket-route__value {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #4a4a4a;
+}
