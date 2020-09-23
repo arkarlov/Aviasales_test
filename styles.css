@@ -117,19 +117,20 @@ body {
   border-radius: 2px;
 }
 
-.filter-box input:focus + .check-box,
+/* поведение при наведении и в фокусе  */
+.input-default_checkbox:focus + .check-box,
 .check-box:hover {
-  background: #f1fcff;
+  background-color: #f1fcff;
 }
 
-.filter-box input:checked + .check-box > .check-box__text::before {
+.input-default_checkbox:checked + .check-box .check-box__text::before {
   border-color: #2196f3;
   background-image: url(img/Shape.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* sort tickets */
+/* sort tickets tabs */
 .sort-box {
   width: 100%;
   margin-bottom: 20px;
@@ -161,7 +162,7 @@ body {
   border-radius: 0px 5px 5px 0px;
 }
 
-.sort-box__item input:checked + .sort-box__text {
+.input-default_radio:checked + .sort-box__text {
   background-color: #2196f3;
   border-color: #2196f3;
   color: #ffffff;
