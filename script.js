@@ -44,7 +44,6 @@ const url = "https://front-test.beta.aviasales.ru";
 window.onload = async function () {
   try {
     let searchId = await getSearchId(url);
-    console.log(searchId);
     let tickets = await search(url, searchId);
     console.log(tickets);
   } catch (error) {
@@ -79,9 +78,10 @@ async function getTickets(url, params) {
 async function search(url, searchId) {
   const response = await getTickets(url, searchId);
   const tickets = [];
-  tickets.push(response.tickets);
+  tickets.push(...response.tickets);
   if (!response.stop) {
-    tickets.push(search(url, searchId));
+    const response = await search(url, searchId);
+    tickets.push(...response.tickets);
   }
 
   return tickets;
