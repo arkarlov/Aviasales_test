@@ -103,8 +103,48 @@
           </label>
         </div>
         <!-- tickets -->
-        <section class="tickets">
-          <article class="tickets__item ticket">
+        <section id="tickets" class="tickets">
+          <template id="ticket-template">
+            <article class="tickets__item ticket">
+              <header class="ticket__header">
+                <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+                <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
+              </header>
+              <div class="ticket__details ticket-route">
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label route-title">MOW – HKT</p>
+                  <p class="ticket-route__value route-time">10:45 – 08:00</p>
+                </div>
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label">В пути</p>
+                  <p class="ticket-route__value route-lenght">21ч 15м</p>
+                </div>
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label route-stops-count">
+                    2 пересадки
+                  </p>
+                  <p class="ticket-route__value route-stops">HKG, JNB</p>
+                </div>
+              </div>
+              <div class="ticket__details ticket-route">
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label route-title">MOW – HKT</p>
+                  <p class="ticket-route__value route-time">10:45 – 08:00</p>
+                </div>
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label">В пути</p>
+                  <p class="ticket-route__value route-lenght">21ч 15м</p>
+                </div>
+                <div class="ticket-route__details">
+                  <p class="ticket-route__label route-stops-count">
+                    2 пересадки
+                  </p>
+                  <p class="ticket-route__value route-stops">HKG, JNB</p>
+                </div>
+              </div>
+            </article>
+          </template>
+          <!-- <article class="tickets__item ticket">
             <header class="ticket__header">
               <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
               <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
@@ -119,7 +159,9 @@
                 <p class="ticket-route__value route-lenght">21ч 15м</p>
               </div>
               <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__label route-stops-count">
+                  2 пересадки
+                </p>
                 <p class="ticket-route__value route-stops">HKG, JNB</p>
               </div>
             </div>
@@ -133,148 +175,13 @@
                 <p class="ticket-route__value route-lenght">21ч 15м</p>
               </div>
               <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
+                <p class="ticket-route__label route-stops-count">
+                  2 пересадки
+                </p>
                 <p class="ticket-route__value route-stops">HKG, JNB</p>
               </div>
             </div>
-          </article>
-
-          <article class="tickets__item ticket">
-            <header class="ticket__header">
-              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
-              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
-            </header>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-          </article>
-          <article class="tickets__item ticket">
-            <header class="ticket__header">
-              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
-              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
-            </header>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-          </article>
-          <article class="tickets__item ticket">
-            <header class="ticket__header">
-              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
-              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
-            </header>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-          </article>
-          <article class="tickets__item ticket">
-            <header class="ticket__header">
-              <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
-              <img src="img/S7 Logo.png" alt="S7 Logo" class="ticket__logo" />
-            </header>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-            <div class="ticket__details ticket-route">
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-title">MOW – HKT</p>
-                <p class="ticket-route__value route-time">10:45 – 08:00</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label">В пути</p>
-                <p class="ticket-route__value route-lenght">21ч 15м</p>
-              </div>
-              <div class="ticket-route__details">
-                <p class="ticket-route__label route-stops-count">2 пересадки</p>
-                <p class="ticket-route__value route-stops">HKG, JNB</p>
-              </div>
-            </div>
-          </article>
+          </article> -->
         </section>
       </main>
     </div>
