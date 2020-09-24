@@ -212,7 +212,7 @@ body {
 }
 
 .ticket__logo {
-  margin-right: 30px;
+  margin-right: 41px; /*в макете ширина лого компании 110px, загружается с шириной 99px (поэтому увеличил правый отступ с 30px до 41px)*/
 }
 
 .ticket__details {
