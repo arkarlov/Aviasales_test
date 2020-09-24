@@ -37,6 +37,8 @@
 //     }
 //   ]
 // }
+// P.S.: Картинки авиакомпаний можешь брать с нашего 
+//  CDN: //pics.avs.io/99/36/{IATA_CODE_HERE}.png
 //
 
 const url = "https://front-test.beta.aviasales.ru";
@@ -85,4 +87,45 @@ async function search(url, searchId) {
   }
 
   return tickets;
+}
+
+function renderTicket(ticket) {
+  const logoUrl = `//pics.avs.io/99/36/${ticket.carrier}.png`
+  const flight = ticket.segments[0];
+  const returnFlite = ticket.segments[1];
+
+ return `<article class="tickets__item ticket">
+  <header class="ticket__header">
+    <span class="ticket__price">${ticket.price}&nbsp;&#8381;</span>
+    <img src="${logoUrl}" alt="S7 Logo" class="ticket__logo" />
+  </header>
+  <div class="ticket__details ticket-route">
+    <div class="ticket-route__details">
+      <p class="ticket-route__label route-title">${flight.origin} – ${flight.destination}</p>
+      <p class="ticket-route__value route-time">${flight.date}</p>
+    </div>
+    <div class="ticket-route__details">
+      <p class="ticket-route__label">В пути</p>
+      <p class="ticket-route__value route-lenght">${flight.duration} м</p>
+    </div>
+    <div class="ticket-route__details">
+      <p class="ticket-route__label route-stops-count">${flight.stops.lenght} пересадки</p>
+      <p class="ticket-route__value route-stops">${flight.stops.join(', ')}</p>
+    </div>
+  </div>
+  <div class="ticket__details ticket-route">
+    <div class="ticket-route__details">
+      <p class="ticket-route__label route-title">${returnFlite.origin} – ${returnFlite.destination}</p>
+      <p class="ticket-route__value route-time">${returnFlite.date}</p>
+    </div>
+    <div class="ticket-route__details">
+      <p class="ticket-route__label">В пути</p>
+      <p class="ticket-route__value route-lenght">${returnFlite.duration} м</p>
+    </div>
+    <div class="ticket-route__details">
+      <p class="ticket-route__label route-stops-count">${returnFlite.stops.lenght} пересадки</p>
+      <p class="ticket-route__value route-stops">${returnFlite.stops.join(', ')}</p>
+    </div>
+  </div>
+</article>`
 }
