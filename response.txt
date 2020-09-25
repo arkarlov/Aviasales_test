@@ -1,0 +1,154 @@
+const TestTicket = {
+  // Цена в рублях
+  price: 134000,
+  // Код авиакомпании (iata)
+  carrier: '7J',
+  // Массив перелётов.
+  // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
+  segments: [
+    {
+      // Код города (iata)
+      origin: 'KUF',
+      // Код города (iata)
+      destination: 'LHR',
+      // Дата и время вылета туда
+      date: '10:45 – 08:00',
+      // Массив кодов (iata) городов с пересадками
+      stops: ['HKG', 'JNB', 'SVO'],
+      // Общее время перелёта в минутах
+      duration: 1275,
+    },
+    {
+      // Код города (iata)
+      origin: 'LHR',
+      // Код города (iata)
+      destination: 'KUF',
+      // Дата и время вылета обратно
+      date: '08:00 – 10:45',
+      // Массив кодов (iata) городов с пересадками
+      stops: ['JNB', 'HKG'],
+      // Общее время перелёта в минутах
+      duration: 1275,
+    }
+  ]
+};
+
+const testResponce = {
+    tickets: [
+        {   price: 134000,
+            carrier: '7J',
+            segments: [
+              {
+                origin: 'KUF',
+                destination: 'LHR',
+                date: '10:45 – 08:00',
+                stops: ['HKG', 'SVO'],
+                duration: 1275,
+              },
+              {
+                origin: 'LHR',
+                destination: 'KUF',
+                date: '08:00 – 10:45',
+                stops: ['JNB', 'HKG'],
+                duration: 1275,
+              }
+            ]
+        },
+        {   price: 13400,
+            carrier: 'S7',
+            segments: [
+              {
+                origin: 'AHJ',
+                destination: 'JNB',
+                date: '10:45 – 08:00',
+                stops: ['HKG', 'JNB', 'DHF'],
+                duration: 1275,
+              },
+              {
+                origin: 'JNB',
+                destination: 'AHJ',
+                date: '08:00 – 10:45',
+                stops: ['AUE'],
+                duration: 2275,
+              }
+            ]
+        },
+        {   price: 1340,
+            carrier: 'JP',
+            segments: [
+              {
+                origin: 'AGV',
+                destination: 'WAM',
+                date: '10:45 – 08:00',
+                stops: ['HKG'],
+                duration: 5275,
+              },
+              {
+                origin: 'WAM',
+                destination: 'AGV',
+                date: '08:00 – 10:45',
+                stops: ['HKG'],
+                duration: 6275,
+              }
+            ]
+        },
+        {   price: 234000,
+            carrier: 'QU',
+            segments: [
+              {
+                origin: 'BML',
+                destination: 'SDY',
+                date: '10:45 – 08:00',
+                stops: ['HKG', 'JNB', 'SVO'],
+                duration: 275,
+              },
+              {
+                origin: 'SDY',
+                destination: 'BML',
+                date: '08:00 – 10:45',
+                stops: ['JNB', 'HKG', 'KSM'],
+                duration: 175,
+              }
+            ]
+        },
+        {   price: 13000,
+            carrier: 'TK',
+            segments: [
+              {
+                origin: 'KUF',
+                destination: 'LHR',
+                date: '10:45 – 08:00',
+                stops: ['HKG', 'JNB', 'KSM'],
+                duration: 1075,
+              },
+              {
+                origin: 'LHR',
+                destination: 'KUF',
+                date: '08:00 – 10:45',
+                stops: ['JNB', 'HKG'],
+                duration: 875,
+              }
+            ]
+        },
+        {   price: 4000,
+            carrier: 'QR',
+            segments: [
+              {
+                origin: 'JNB',
+                destination: 'HKG',
+                date: '10:45 – 08:00',
+                stops: ['HKG', 'SVO'],
+                duration: 3275,
+              },
+              {
+                origin: 'HKG',
+                destination: 'JNB',
+                date: '08:00 – 10:45',
+                stops: ['JNB'],
+                duration: 1275,
+              }
+            ]
+        },
+    ], 
+    stop: true,
+};
