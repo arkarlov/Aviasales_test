@@ -119,7 +119,7 @@ const testResponce = {
             }
           ]
       },
-      {   price: 13000,
+      {   price: 19600,
           carrier: 'TK',
           segments: [
             {
@@ -172,6 +172,7 @@ window.onload = async function () {
     renderOneTicket(testResponce.tickets[1]);
     renderOneTicket(testResponce.tickets[2]);
     renderOneTicket(testResponce.tickets[3]);
+    renderOneTicket(testResponce.tickets[4]);
     // let searchId = await getSearchId(url);
     // let tickets = await search(url, searchId);
     // console.log(tickets);
@@ -227,9 +228,10 @@ function renderOneTicket(ticketData) {
   const ticketPrice = ticket.querySelector('.ticket__price');
   const ticketLogo = ticket.querySelector('.ticket__logo');
 
-  ticketPrice.innerHTML = ticketData.price + "&nbsp;&#8381;";
+  ticketPrice.innerHTML =  new Intl.NumberFormat('ru-RU', {style: 'currency', currency: 'RUB', currencyDisplay: 'symbol', minimumFractionDigits: 0, maximumFractionDigits: 0}).format(ticketData.price);
   ticketLogo.src = carrierLogoUrl;
 
+  // формируем и заполняем маршруты билета
   ticketData.segments.forEach(element => {
     const routeTemplate = ticket.querySelector('#route-template').content;
     const ticketRoute = routeTemplate.cloneNode(true);
