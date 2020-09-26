@@ -255,7 +255,7 @@ function renderOneTicket(ticketData) {
     routeTitle.textContent = `${element.origin} – ${element.destination}`;
     routeTime.textContent = `${departureTime} – ${arrivalTime}`;
     routeLenght.textContent = `${routeDuration.hours}ч ${routeDuration.mins}м`;
-    routeSstopsCount.textContent = element.stops.length;
+    routeSstopsCount.textContent = defineQuantityStops(element.stops.length);
     routeStops.textContent = element.stops.join(', ');
 
     ticket.children[0].append(ticketRoute);   // добавляем в потомка DocumentFragment HTMLCollection
@@ -263,6 +263,16 @@ function renderOneTicket(ticketData) {
 
   document.querySelector('#tickets-section').append(ticket);
 };
+
+function defineQuantityStops(number) {
+  const words = ['без пересадок', 'пересадка', 'пересадки', 'пересадок'];
+  let n = ((number >= 5 && number <= 20) || (number % 10 >= 5 && number % 10 <= 20) || (number != 0 && number % 10 == 0)) ? 3 : (number % 10 == 1) ? 1 : (number % 10 >=2 && number % 10 <=4) ? 2 : 0;
+  if (number == 0) {
+    return words[n];
+  } else {
+    return `${number} ${words[n]}`;
+  }  
+}
 
 function renderAllTickets() {
 
