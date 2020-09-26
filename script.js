@@ -49,14 +49,14 @@ const testResponce = {
             {
               origin: 'KUF',
               destination: 'LHR',
-              date: '10:45 – 08:00',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG', 'SVO'],
               duration: 1275,
             },
             {
               origin: 'LHR',
               destination: 'KUF',
-              date: '08:00 – 10:45',
+              date: '2020-09-25T10:45:00.417',
               stops: ['JNB', 'HKG'],
               duration: 1275,
             }
@@ -68,14 +68,14 @@ const testResponce = {
             {
               origin: 'AHJ',
               destination: 'JNB',
-              date: '10:45 – 08:00',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG', 'JNB', 'DHF'],
               duration: 1275,
             },
             {
               origin: 'JNB',
               destination: 'AHJ',
-              date: '08:00 – 10:45',
+              date: '2020-09-25T10:45:00.417',
               stops: ['AUE'],
               duration: 2275,
             }
@@ -87,14 +87,14 @@ const testResponce = {
             {
               origin: 'AGV',
               destination: 'WAM',
-              date: '10:45 – 08:00',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG'],
               duration: 5275,
             },
             {
               origin: 'WAM',
               destination: 'AGV',
-              date: '08:00 – 10:45',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG'],
               duration: 6275,
             }
@@ -106,15 +106,15 @@ const testResponce = {
             {
               origin: 'BML',
               destination: 'SDY',
-              date: '10:45 – 08:00',
-              stops: ['HKG', 'JNB', 'SVO'],
+              date: '2020-09-25T10:45:00.417',
+              stops: ['HKG'],
               duration: 275,
             },
             {
               origin: 'SDY',
               destination: 'BML',
-              date: '08:00 – 10:45',
-              stops: ['JNB', 'HKG', 'KSM'],
+              date: '2020-09-25T10:45:00.417',
+              stops: [],
               duration: 175,
             }
           ]
@@ -125,14 +125,14 @@ const testResponce = {
             {
               origin: 'KUF',
               destination: 'LHR',
-              date: '10:45 – 08:00',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG', 'JNB', 'KSM'],
               duration: 1075,
             },
             {
               origin: 'LHR',
               destination: 'KUF',
-              date: '08:00 – 10:45',
+              date: '2020-09-25T10:45:00.417',
               stops: ['JNB', 'HKG'],
               duration: 875,
             }
@@ -144,14 +144,14 @@ const testResponce = {
             {
               origin: 'JNB',
               destination: 'HKG',
-              date: '10:45 – 08:00',
+              date: '2020-09-25T10:45:00.417',
               stops: ['HKG', 'SVO'],
               duration: 3275,
             },
             {
               origin: 'HKG',
               destination: 'JNB',
-              date: '08:00 – 10:45',
+              date: '2020-09-25T10:45:00.417',
               stops: ['JNB'],
               duration: 1275,
             }
@@ -243,13 +243,22 @@ function renderOneTicket(ticketData) {
     routeDuration.mins = element.duration % 60;
     routeDuration.hours = (element.duration - routeDuration.mins) / 60;
 
+    // получаем дату и времы вылета из строки и вычисляем время прилета использую продолжительность полета (без учета часовых поясов) 
+    let timeFormatOptions = {hour: 'numeric', minute: 'numeric'};
+    let departureDate = new Date(element.date);
+    let departureTime = departureDate.toLocaleTimeString('ru-RU', timeFormatOptions);
+    let arrivalDate = new Date(departureDate);
+    arrivalDate.setMinutes(arrivalDate.getMinutes() + element.duration);
+    let arrivalTime = arrivalDate.toLocaleTimeString('ru-RU', timeFormatOptions);
+
+    // заполняем маршрут
     routeTitle.textContent = `${element.origin} – ${element.destination}`;
-    routeTime.textContent = element.date;
+    routeTime.textContent = `${departureTime} – ${arrivalTime}`;
     routeLenght.textContent = `${routeDuration.hours}ч ${routeDuration.mins}м`;
     routeSstopsCount.textContent = element.stops.length;
     routeStops.textContent = element.stops.join(', ');
 
-    ticket.children[0].append(ticketRoute);   // добавляем в потомка DocumentFragment
+    ticket.children[0].append(ticketRoute);   // добавляем в потомка DocumentFragment HTMLCollection
   });
 
   document.querySelector('#tickets-section').append(ticket);
