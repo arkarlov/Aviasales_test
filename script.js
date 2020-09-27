@@ -37,142 +37,141 @@
 //     }
 //   ]
 // }
-// P.S.: Картинки авиакомпаний можешь брать с нашего 
+// P.S.: Картинки авиакомпаний можешь брать с нашего
 //  CDN: //pics.avs.io/99/36/{IATA_CODE_HERE}.png
 //
 
 const testResponce = {
   tickets: [
-      {   price: 134000,
-          carrier: '7J',
-          segments: [
-            {
-              origin: 'KUF',
-              destination: 'LHR',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG', 'SVO'],
-              duration: 1275,
-            },
-            {
-              origin: 'LHR',
-              destination: 'KUF',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['JNB', 'HKG'],
-              duration: 1275,
-            }
-          ]
-      },
-      {   price: 13400,
-          carrier: 'S7',
-          segments: [
-            {
-              origin: 'AHJ',
-              destination: 'JNB',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG', 'JNB', 'DHF'],
-              duration: 1275,
-            },
-            {
-              origin: 'JNB',
-              destination: 'AHJ',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['AUE'],
-              duration: 2275,
-            }
-          ]
-      },
-      {   price: 1340,
-          carrier: 'JP',
-          segments: [
-            {
-              origin: 'AGV',
-              destination: 'WAM',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG'],
-              duration: 5275,
-            },
-            {
-              origin: 'WAM',
-              destination: 'AGV',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG'],
-              duration: 6275,
-            }
-          ]
-      },
-      {   price: 234000,
-          carrier: 'QU',
-          segments: [
-            {
-              origin: 'BML',
-              destination: 'SDY',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG'],
-              duration: 275,
-            },
-            {
-              origin: 'SDY',
-              destination: 'BML',
-              date: '2020-09-25T10:45:00.417',
-              stops: [],
-              duration: 175,
-            }
-          ]
-      },
-      {   price: 19600,
-          carrier: 'TK',
-          segments: [
-            {
-              origin: 'KUF',
-              destination: 'LHR',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG', 'JNB', 'KSM'],
-              duration: 1075,
-            },
-            {
-              origin: 'LHR',
-              destination: 'KUF',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['JNB', 'HKG'],
-              duration: 875,
-            }
-          ]
-      },
-      {   price: 4000,
-          carrier: 'QR',
-          segments: [
-            {
-              origin: 'JNB',
-              destination: 'HKG',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['HKG', 'SVO'],
-              duration: 3275,
-            },
-            {
-              origin: 'HKG',
-              destination: 'JNB',
-              date: '2020-09-25T10:45:00.417',
-              stops: ['JNB'],
-              duration: 1275,
-            }
-          ]
-      },
-  ], 
+    {
+      price: 13400,
+      carrier: "S7",
+      segments: [
+        {
+          origin: "MOW",
+          destination: "HKT",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB"],
+          duration: 1275,
+        },
+        {
+          origin: "MOW",
+          destination: "HKT",
+          date: "2020-09-25T11:20:00.417",
+          stops: ["HKG"],
+          duration: 810,
+        },
+      ],
+    },
+    {
+      price: 134000,
+      carrier: "7J",
+      segments: [
+        {
+          origin: "KUF",
+          destination: "LHR",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "SVO"],
+          duration: 1275,
+        },
+        {
+          origin: "LHR",
+          destination: "KUF",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB", "HKG"],
+          duration: 1275,
+        },
+      ],
+    },
+    {
+      price: 1340,
+      carrier: "JP",
+      segments: [
+        {
+          origin: "AGV",
+          destination: "WAM",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM"],
+          duration: 5275,
+        },
+        {
+          origin: "WAM",
+          destination: "AGV",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM", "SVO"],
+          duration: 6275,
+        },
+      ],
+    },
+    {
+      price: 234000,
+      carrier: "EK",
+      segments: [
+        {
+          origin: "BML",
+          destination: "SDY",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG"],
+          duration: 275,
+        },
+        {
+          origin: "SDY",
+          destination: "BML",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 175,
+        },
+      ],
+    },
+    {
+      price: 19600,
+      carrier: "TK",
+      segments: [
+        {
+          origin: "KUF",
+          destination: "LHR",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM"],
+          duration: 1075,
+        },
+        {
+          origin: "LHR",
+          destination: "KUF",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB", "HKG"],
+          duration: 875,
+        },
+      ],
+    },
+    {
+      price: 24000,
+      carrier: "QR",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "SVO"],
+          duration: 1200,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB"],
+          duration: 1275,
+        },
+      ],
+    },
+  ],
   stop: true,
 };
-
-
-
 
 const url = "https://front-test.beta.aviasales.ru";
 
 window.onload = async function () {
   try {
-    renderOneTicket(testResponce.tickets[0]);
-    renderOneTicket(testResponce.tickets[1]);
-    renderOneTicket(testResponce.tickets[2]);
-    renderOneTicket(testResponce.tickets[3]);
-    renderOneTicket(testResponce.tickets[4]);
+    renderAllTickets(testResponce.tickets);
     // let searchId = await getSearchId(url);
     // let tickets = await search(url, searchId);
     // console.log(tickets);
@@ -221,61 +220,86 @@ async function search(url, searchId) {
 
 // отрисовываем один билет, ticketData - объект билета
 function renderOneTicket(ticketData) {
-  const carrierLogoUrl = `//pics.avs.io/99/36/${ticketData.carrier}.png` // получаем logo.png авиакомпании из CDN
+  const carrierLogoUrl = `//pics.avs.io/99/36/${ticketData.carrier}.png`; // получаем logo.png авиакомпании из CDN
 
-  const ticketTemplate = document.querySelector('#ticket-template').content;  
+  const ticketTemplate = document.querySelector("#ticket-template").content;
   const ticket = ticketTemplate.cloneNode(true);
-  const ticketPrice = ticket.querySelector('.ticket__price');
-  const ticketLogo = ticket.querySelector('.ticket__logo');
+  const ticketPrice = ticket.querySelector(".ticket__price");
+  const ticketLogo = ticket.querySelector(".ticket__logo");
 
-  ticketPrice.innerHTML =  new Intl.NumberFormat('ru-RU', {style: 'currency', currency: 'RUB', currencyDisplay: 'symbol', minimumFractionDigits: 0, maximumFractionDigits: 0}).format(ticketData.price);
+  ticketPrice.innerHTML = new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB",
+    currencyDisplay: "symbol",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(ticketData.price);
   ticketLogo.src = carrierLogoUrl;
 
   // формируем и заполняем маршруты билета
-  ticketData.segments.forEach(element => {
-    const routeTemplate = ticket.querySelector('#route-template').content;
+  ticketData.segments.forEach((element) => {
+    const routeTemplate = ticket.querySelector("#route-template").content;
     const ticketRoute = routeTemplate.cloneNode(true);
-    const routeTitle = ticketRoute.querySelector('.route-title');
-    const routeTime = ticketRoute.querySelector('.route-time');
-    const routeLenght = ticketRoute.querySelector('.route-lenght');
-    const routeSstopsCount = ticketRoute.querySelector('.route-stops-count');
-    const routeStops = ticketRoute.querySelector('.route-stops');
+    const routeTitle = ticketRoute.querySelector(".route-title");
+    const routeTime = ticketRoute.querySelector(".route-time");
+    const routeLenght = ticketRoute.querySelector(".route-lenght");
+    const routeSstopsCount = ticketRoute.querySelector(".route-stops-count");
+    const routeStops = ticketRoute.querySelector(".route-stops");
 
     let routeDuration = {};
     routeDuration.mins = element.duration % 60;
     routeDuration.hours = (element.duration - routeDuration.mins) / 60;
 
-    // получаем дату и времы вылета из строки и вычисляем время прилета использую продолжительность полета (без учета часовых поясов) 
-    let timeFormatOptions = {hour: 'numeric', minute: 'numeric'};
+    // получаем дату и времы вылета из строки и вычисляем время прилета использую продолжительность полета (без учета часовых поясов)
+    let timeFormatOptions = { hour: "numeric", minute: "numeric" };
     let departureDate = new Date(element.date);
-    let departureTime = departureDate.toLocaleTimeString('ru-RU', timeFormatOptions);
+    let departureTime = departureDate.toLocaleTimeString(
+      "ru-RU",
+      timeFormatOptions
+    );
     let arrivalDate = new Date(departureDate);
     arrivalDate.setMinutes(arrivalDate.getMinutes() + element.duration);
-    let arrivalTime = arrivalDate.toLocaleTimeString('ru-RU', timeFormatOptions);
+    let arrivalTime = arrivalDate.toLocaleTimeString(
+      "ru-RU",
+      timeFormatOptions
+    );
 
     // заполняем маршрут
     routeTitle.textContent = `${element.origin} – ${element.destination}`;
     routeTime.textContent = `${departureTime} – ${arrivalTime}`;
     routeLenght.textContent = `${routeDuration.hours}ч ${routeDuration.mins}м`;
     routeSstopsCount.textContent = defineQuantityStops(element.stops.length);
-    routeStops.textContent = element.stops.join(', ');
+    routeStops.textContent = element.stops.join(", ");
 
-    ticket.children[0].append(ticketRoute);   // добавляем в потомка DocumentFragment HTMLCollection
+    ticket.children[0].append(ticketRoute); // добавляем в потомка DocumentFragment HTMLCollection
   });
 
-  document.querySelector('#tickets-section').append(ticket);
-};
+  document.querySelector("#tickets-section").append(ticket);
+}
 
+// склоняем пересадку
 function defineQuantityStops(number) {
-  const words = ['без пересадок', 'пересадка', 'пересадки', 'пересадок'];
-  let n = ((number >= 5 && number <= 20) || (number % 10 >= 5 && number % 10 <= 20) || (number != 0 && number % 10 == 0)) ? 3 : (number % 10 == 1) ? 1 : (number % 10 >=2 && number % 10 <=4) ? 2 : 0;
+  const words = ["без пересадок", "пересадка", "пересадки", "пересадок"];
+  let n =
+    (number >= 5 && number <= 20) ||
+    (number % 10 >= 5 && number % 10 <= 20) ||
+    (number != 0 && number % 10 == 0)
+      ? 3
+      : number % 10 == 1
+      ? 1
+      : number % 10 >= 2 && number % 10 <= 4
+      ? 2
+      : 0;
   if (number == 0) {
     return words[n];
   } else {
     return `${number} ${words[n]}`;
-  }  
+  }
 }
 
-function renderAllTickets() {
-
+// отрисовываем массив билетов
+function renderAllTickets(ticketsArray) {
+  ticketsArray.forEach((element) => {
+    renderOneTicket(element);
+  });
 }
