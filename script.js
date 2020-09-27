@@ -163,6 +163,46 @@ const testResponce = {
         },
       ],
     },
+    {
+      price: 21364,
+      carrier: "SU",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG"],
+          duration: 1200,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB"],
+          duration: 1275,
+        },
+      ],
+    },
+    {
+      price: 350364,
+      carrier: "BA",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 845,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 450,
+        },
+      ],
+    },
   ],
   stop: true,
 };
@@ -171,10 +211,10 @@ const url = "https://front-test.beta.aviasales.ru";
 
 window.onload = async function () {
   try {
-    renderAllTickets(testResponce.tickets);
     // let searchId = await getSearchId(url);
     // let tickets = await search(url, searchId);
     // console.log(tickets);
+    renderAllTickets(filterTickets(testResponce.tickets, 2));
   } catch (error) {
     console.log(error.message);
   }
@@ -302,4 +342,36 @@ function renderAllTickets(ticketsArray) {
   ticketsArray.forEach((element) => {
     renderOneTicket(element);
   });
+}
+
+function filterTickets(ticketsArray, filters) {
+  let result = ticketsArray.filter((ticket) => {
+    let stopsQuantity = [];
+    ticket.segments.forEach((element) => {
+      stopsQuantity.push(element.stops.length);
+    });
+    if (
+      (stopsQuantity[0] == filters && stopsQuantity[1] <= filters) ||
+      (stopsQuantity[0] <= filters && stopsQuantity[1] == filters)
+    )
+      return true;
+  });
+  return result;
+}
+
+const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
+filterCheckboxes.forEach((element) => {
+  element.addEventListener('change', function() {
+    console.log(getFilters(filterCheckboxes));
+  });
+});
+
+function getFilters(filters) {
+  let result = [];
+  filters.forEach((element) => {
+    if (element.checked) {
+      result.push(+element.value);
+    }
+  });
+  return result;
 }
