@@ -1,46 +1,5 @@
 "use strict";
 
-//
-// Response: {tickets: [], stop: true}
-//
-// interface Ticket {
-//   // Цена в рублях
-//   price: number
-//   // Код авиакомпании (iata)
-//   carrier: string
-//   // Массив перелётов.
-//   // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
-//   segments: [
-//     {
-//       // Код города (iata)
-//       origin: string
-//       // Код города (iata)
-//       destination: string
-//       // Дата и время вылета туда
-//       date: string
-//       // Массив кодов (iata) городов с пересадками
-//       stops: string[]
-//       // Общее время перелёта в минутах
-//       duration: number
-//     },
-//     {
-//       // Код города (iata)
-//       origin: string
-//       // Код города (iata)
-//       destination: string
-//       // Дата и время вылета обратно
-//       date: string
-//       // Массив кодов (iata) городов с пересадками
-//       stops: string[]
-//       // Общее время перелёта в минутах
-//       duration: number
-//     }
-//   ]
-// }
-// P.S.: Картинки авиакомпаний можешь брать с нашего
-//  CDN: //pics.avs.io/99/36/{IATA_CODE_HERE}.png
-//
-
 const testResponce = {
   tickets: [
     {
@@ -163,22 +122,73 @@ const testResponce = {
         },
       ],
     },
+    {
+      price: 21364,
+      carrier: "SU",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG"],
+          duration: 1200,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB"],
+          duration: 1275,
+        },
+      ],
+    },
+    {
+      price: 350364,
+      carrier: "BA",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 845,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 450,
+        },
+      ],
+    },
   ],
   stop: true,
 };
 
 const url = "https://front-test.beta.aviasales.ru";
+const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
+const tickets = testResponce.tickets;
 
 window.onload = async function () {
   try {
-    renderAllTickets(testResponce.tickets);
     // let searchId = await getSearchId(url);
     // let tickets = await search(url, searchId);
-    // console.log(tickets);
+    let filters = getFilters(filterCheckboxes);
+    renderAllTickets(getFilteredTickets(tickets, ...filters));
   } catch (error) {
     console.log(error.message);
   }
 };
+
+filterCheckboxes.forEach((element) => {
+  element.addEventListener("change", function () {
+    clearTickets();
+    renderAllTickets(
+      getFilteredTickets(tickets, ...getFilters(filterCheckboxes))
+    );
+  });
+});
 
 // отправляем запрос на сервер, получаем saercID
 async function getSearchId(url) {
@@ -302,4 +312,50 @@ function renderAllTickets(ticketsArray) {
   ticketsArray.forEach((element) => {
     renderOneTicket(element);
   });
+}
+
+//удаляем все билеты
+function clearTickets() {
+  let ticketsSection = document.querySelector("#tickets-section");
+  while (ticketsSection.children.length > 1) {
+    console.log(ticketsSection.children);
+    console.log(ticketsSection);
+    console.log("length: " + ticketsSection.children.length);
+    ticketsSection.lastElementChild.remove();
+  }
+}
+
+// выбираем билеты по количеству пересадок
+function getFilteredTickets(ticketsArray, ...filters) {
+  if (filters.includes(-1)) {
+    return ticketsArray; //если выбран фильтр "все" - возвращаем весь массив билетов
+  }
+  let result = ticketsArray.filter((ticket) => {
+    let stopsQuantity = [];
+    ticket.segments.forEach((element) => {
+      stopsQuantity.push(element.stops.length);
+    });
+
+    let findedFilter = filters.find(
+      (filter) =>
+        (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
+        (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
+    );
+
+    if (findedFilter !== undefined) {
+      return true;
+    }
+  });
+  return result;
+}
+
+//получаем массив фильтров из чекбоксов
+function getFilters(filterCheckboxes) {
+  let result = [];
+  filterCheckboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      result.push(+checkbox.value);
+    }
+  });
+  return result;
 }
