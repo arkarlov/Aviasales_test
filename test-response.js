@@ -1,36 +1,38 @@
+"use strict";
+
 const TestTicket = {
   // Цена в рублях
-  price: 134000,
+  price: 13400,
   // Код авиакомпании (iata)
-  carrier: '7J',
+  carrier: "S7",
   // Массив перелётов.
   // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
   segments: [
     {
       // Код города (iata)
-      origin: 'KUF',
+      origin: "MOW",
       // Код города (iata)
-      destination: 'LHR',
+      destination: "HKT",
       // Дата и время вылета туда
-      date: '10:45 – 08:00',
+      date: "10:45 – 08:00",
       // Массив кодов (iata) городов с пересадками
-      stops: ['HKG', 'JNB', 'SVO'],
+      stops: ["HKG", "JNB"],
       // Общее время перелёта в минутах
       duration: 1275,
     },
     {
       // Код города (iata)
-      origin: 'LHR',
+      origin: "MOW",
       // Код города (iata)
-      destination: 'KUF',
+      destination: "HKT",
       // Дата и время вылета обратно
-      date: '08:00 – 10:45',
+      date: "11:20 – 00:50",
       // Массив кодов (iata) городов с пересадками
-      stops: ['JNB', 'HKG'],
+      stops: ["HKG"],
       // Общее время перелёта в минутах
-      duration: 1275,
-    }
-  ]
+      duration: 810,
+    },
+  ],
 };
 
 const testResponce = {
@@ -198,3 +200,10 @@ const testResponce = {
   ],
   stop: true,
 };
+
+// export const tickets = testResponce.tickets;
+
+export async function getTickets() {
+  let tickets = testResponce.tickets;
+  return tickets;
+}
