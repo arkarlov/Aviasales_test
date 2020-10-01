@@ -34,121 +34,167 @@ const TestTicket = {
 };
 
 const testResponce = {
-    tickets: [
-        {   price: 134000,
-            carrier: '7J',
-            segments: [
-              {
-                origin: 'KUF',
-                destination: 'LHR',
-                date: '10:45 – 08:00',
-                stops: ['HKG', 'SVO'],
-                duration: 1275,
-              },
-              {
-                origin: 'LHR',
-                destination: 'KUF',
-                date: '08:00 – 10:45',
-                stops: ['JNB', 'HKG'],
-                duration: 1275,
-              }
-            ]
+  tickets: [
+    {
+      price: 13400,
+      carrier: "S7",
+      segments: [
+        {
+          origin: "MOW",
+          destination: "HKT",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB"],
+          duration: 1275,
         },
-        {   price: 13400,
-            carrier: 'S7',
-            segments: [
-              {
-                origin: 'AHJ',
-                destination: 'JNB',
-                date: '10:45 – 08:00',
-                stops: ['HKG', 'JNB', 'DHF'],
-                duration: 1275,
-              },
-              {
-                origin: 'JNB',
-                destination: 'AHJ',
-                date: '08:00 – 10:45',
-                stops: ['AUE'],
-                duration: 2275,
-              }
-            ]
+        {
+          origin: "MOW",
+          destination: "HKT",
+          date: "2020-09-25T11:20:00.417",
+          stops: ["HKG"],
+          duration: 810,
         },
-        {   price: 1340,
-            carrier: 'JP',
-            segments: [
-              {
-                origin: 'AGV',
-                destination: 'WAM',
-                date: '10:45 – 08:00',
-                stops: ['HKG'],
-                duration: 5275,
-              },
-              {
-                origin: 'WAM',
-                destination: 'AGV',
-                date: '08:00 – 10:45',
-                stops: ['HKG'],
-                duration: 6275,
-              }
-            ]
+      ],
+    },
+    {
+      price: 134000,
+      carrier: "7J",
+      segments: [
+        {
+          origin: "KUF",
+          destination: "LHR",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "SVO"],
+          duration: 1275,
         },
-        {   price: 234000,
-            carrier: 'QU',
-            segments: [
-              {
-                origin: 'BML',
-                destination: 'SDY',
-                date: '10:45 – 08:00',
-                stops: ['HKG', 'JNB', 'SVO'],
-                duration: 275,
-              },
-              {
-                origin: 'SDY',
-                destination: 'BML',
-                date: '08:00 – 10:45',
-                stops: ['JNB', 'HKG', 'KSM'],
-                duration: 175,
-              }
-            ]
+        {
+          origin: "LHR",
+          destination: "KUF",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB", "HKG"],
+          duration: 1275,
         },
-        {   price: 13000,
-            carrier: 'TK',
-            segments: [
-              {
-                origin: 'KUF',
-                destination: 'LHR',
-                date: '10:45 – 08:00',
-                stops: ['HKG', 'JNB', 'KSM'],
-                duration: 1075,
-              },
-              {
-                origin: 'LHR',
-                destination: 'KUF',
-                date: '08:00 – 10:45',
-                stops: ['JNB', 'HKG'],
-                duration: 875,
-              }
-            ]
+      ],
+    },
+    {
+      price: 1340,
+      carrier: "JP",
+      segments: [
+        {
+          origin: "AGV",
+          destination: "WAM",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM"],
+          duration: 5275,
         },
-        {   price: 4000,
-            carrier: 'QR',
-            segments: [
-              {
-                origin: 'JNB',
-                destination: 'HKG',
-                date: '10:45 – 08:00',
-                stops: ['HKG', 'SVO'],
-                duration: 3275,
-              },
-              {
-                origin: 'HKG',
-                destination: 'JNB',
-                date: '08:00 – 10:45',
-                stops: ['JNB'],
-                duration: 1275,
-              }
-            ]
+        {
+          origin: "WAM",
+          destination: "AGV",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM", "SVO"],
+          duration: 6275,
         },
-    ], 
-    stop: true,
+      ],
+    },
+    {
+      price: 234000,
+      carrier: "EK",
+      segments: [
+        {
+          origin: "BML",
+          destination: "SDY",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG"],
+          duration: 275,
+        },
+        {
+          origin: "SDY",
+          destination: "BML",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 175,
+        },
+      ],
+    },
+    {
+      price: 19600,
+      carrier: "TK",
+      segments: [
+        {
+          origin: "KUF",
+          destination: "LHR",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "JNB", "KSM"],
+          duration: 1075,
+        },
+        {
+          origin: "LHR",
+          destination: "KUF",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB", "HKG"],
+          duration: 875,
+        },
+      ],
+    },
+    {
+      price: 24000,
+      carrier: "QR",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG", "SVO"],
+          duration: 1200,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB"],
+          duration: 1275,
+        },
+      ],
+    },
+    {
+      price: 21364,
+      carrier: "SU",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["HKG"],
+          duration: 1200,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: ["JNB"],
+          duration: 1275,
+        },
+      ],
+    },
+    {
+      price: 350364,
+      carrier: "BA",
+      segments: [
+        {
+          origin: "JNB",
+          destination: "HKG",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 845,
+        },
+        {
+          origin: "HKG",
+          destination: "JNB",
+          date: "2020-09-25T10:45:00.417",
+          stops: [],
+          duration: 450,
+        },
+      ],
+    },
+  ],
+  stop: true,
 };

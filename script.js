@@ -1,46 +1,5 @@
 "use strict";
 
-//
-// Response: {tickets: [], stop: true}
-//
-// interface Ticket {
-//   // Цена в рублях
-//   price: number
-//   // Код авиакомпании (iata)
-//   carrier: string
-//   // Массив перелётов.
-//   // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
-//   segments: [
-//     {
-//       // Код города (iata)
-//       origin: string
-//       // Код города (iata)
-//       destination: string
-//       // Дата и время вылета туда
-//       date: string
-//       // Массив кодов (iata) городов с пересадками
-//       stops: string[]
-//       // Общее время перелёта в минутах
-//       duration: number
-//     },
-//     {
-//       // Код города (iata)
-//       origin: string
-//       // Код города (iata)
-//       destination: string
-//       // Дата и время вылета обратно
-//       date: string
-//       // Массив кодов (iata) городов с пересадками
-//       stops: string[]
-//       // Общее время перелёта в минутах
-//       duration: number
-//     }
-//   ]
-// }
-// P.S.: Картинки авиакомпаний можешь брать с нашего
-//  CDN: //pics.avs.io/99/36/{IATA_CODE_HERE}.png
-//
-
 const testResponce = {
   tickets: [
     {
@@ -208,17 +167,28 @@ const testResponce = {
 };
 
 const url = "https://front-test.beta.aviasales.ru";
+const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
+const tickets = testResponce.tickets;
 
 window.onload = async function () {
   try {
     // let searchId = await getSearchId(url);
     // let tickets = await search(url, searchId);
-    // console.log(tickets);
-    renderAllTickets(filterTickets(testResponce.tickets, 2));
+    let filters = getFilters(filterCheckboxes);
+    renderAllTickets(getFilteredTickets(tickets, ...filters));
   } catch (error) {
     console.log(error.message);
   }
 };
+
+filterCheckboxes.forEach((element) => {
+  element.addEventListener("change", function () {
+    clearTickets();
+    renderAllTickets(
+      getFilteredTickets(tickets, ...getFilters(filterCheckboxes))
+    );
+  });
+});
 
 // отправляем запрос на сервер, получаем saercID
 async function getSearchId(url) {
@@ -344,33 +314,47 @@ function renderAllTickets(ticketsArray) {
   });
 }
 
-function filterTickets(ticketsArray, filters) {
+//удаляем все билеты
+function clearTickets() {
+  let ticketsSection = document.querySelector("#tickets-section");
+  while (ticketsSection.children.length > 1) {
+    console.log(ticketsSection.children);
+    console.log(ticketsSection);
+    console.log("length: " + ticketsSection.children.length);
+    ticketsSection.lastElementChild.remove();
+  }
+}
+
+// выбираем билеты по количеству пересадок
+function getFilteredTickets(ticketsArray, ...filters) {
+  if (filters.includes(-1)) {
+    return ticketsArray; //если выбран фильтр "все" - возвращаем весь массив билетов
+  }
   let result = ticketsArray.filter((ticket) => {
     let stopsQuantity = [];
     ticket.segments.forEach((element) => {
       stopsQuantity.push(element.stops.length);
     });
-    if (
-      (stopsQuantity[0] == filters && stopsQuantity[1] <= filters) ||
-      (stopsQuantity[0] <= filters && stopsQuantity[1] == filters)
-    )
+
+    let findedFilter = filters.find(
+      (filter) =>
+        (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
+        (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
+    );
+
+    if (findedFilter !== undefined) {
       return true;
+    }
   });
   return result;
 }
 
-const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
-filterCheckboxes.forEach((element) => {
-  element.addEventListener('change', function() {
-    console.log(getFilters(filterCheckboxes));
-  });
-});
-
-function getFilters(filters) {
+//получаем массив фильтров из чекбоксов
+function getFilters(filterCheckboxes) {
   let result = [];
-  filters.forEach((element) => {
-    if (element.checked) {
-      result.push(+element.value);
+  filterCheckboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      result.push(+checkbox.value);
     }
   });
   return result;
