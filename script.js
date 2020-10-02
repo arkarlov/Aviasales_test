@@ -12,9 +12,29 @@ window.onload = async function () {
     let sortValue = getSortValue(sortRadios);
     let filteredTickets = getFilteredTickets(tickets, ...filters);
     sortTickets(filteredTickets, sortValue);
-    renderTickets(filteredTickets);    
+    renderTickets(filteredTickets);
 
-    renderTicketsOnChangeFilters(filterCheckboxes, tickets);
+    // отрисовываем билеты после изменения фильтров
+    filterCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", function () {
+        clearTickets();
+        filters = getFilters(filterCheckboxes);
+        sortValue = getSortValue(sortRadios);
+        filteredTickets = getFilteredTickets(tickets, ...filters);
+        sortTickets(filteredTickets, sortValue);
+        renderTickets(filteredTickets);
+      });
+    });
+
+    // отрисовываем билеты после изменения сортировки
+    sortRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        clearTickets();
+        sortValue = getSortValue(sortRadios);
+        sortTickets(filteredTickets, sortValue);
+        renderTickets(filteredTickets);
+      });
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -31,12 +51,13 @@ function renderTickets(ticketsArray) {
 function renderOneTicket(ticketData) {
   const carrierLogoUrl = `//pics.avs.io/99/36/${ticketData.carrier}.png`; // получаем logo.png авиакомпании из CDN
 
-  const ticketTemplate = document.querySelector("#ticket-template").content;
-  const ticket = ticketTemplate.cloneNode(true);
+  const ticketTemplate = document.querySelector("#ticket-template").content; // получаем template
+  const ticket = ticketTemplate.cloneNode(true); // создаем новый экзепляр template
   const ticketPrice = ticket.querySelector(".ticket__price");
   const ticketLogo = ticket.querySelector(".ticket__logo");
 
   ticketPrice.innerHTML = new Intl.NumberFormat("ru-RU", {
+    //используем объект Intl для форматирования с учетом локали
     style: "currency",
     currency: "RUB",
     currencyDisplay: "symbol",
@@ -83,7 +104,7 @@ function renderOneTicket(ticketData) {
     ticket.children[0].append(ticketRoute); // добавляем в потомка DocumentFragment HTMLCollection
   });
 
-  document.querySelector("#tickets-section").append(ticket);
+  document.querySelector("#tickets-section").append(ticket); // добавляем заполненный экзепляр template в документ
 }
 
 // склоняем пересадку
@@ -125,8 +146,8 @@ function getFilteredTickets(ticketsArray, ...filters) {
       stopsQuantity.push(element.stops.length);
     });
 
+    //использовал .find() чтобы не "придумывать" прерывание цикла
     let findedFilter = filters.find(
-      //использовал .find() чтобы не "придумывать" прерывание цикла
       (filter) =>
         (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
         (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
@@ -165,21 +186,9 @@ function sortTickets(ticketsArray, sortValue) {
     return ticketsArray.sort((a, b) => a.price - b.price);
   } else {
     return ticketsArray.sort((a, b) => {
-      let aMaxDuration = Math.max(a.segments[0].duration, a.segments[1].duration);
-      let bMaxDuration = Math.max(b.segments[0].duration, b.segments[1].duration);
-      return aMaxDuration - bMaxDuration; //сравниваем максимальные значения duration из каждого билета
+      let aSumDuration = a.segments[0].duration + a.segments[1].duration;
+      let bSumDuration = b.segments[0].duration + b.segments[1].duration;
+      return aSumDuration - bSumDuration; //сравниваем суммарные значения duration из каждого билета
     });
   }
-}
-
-// отрисовываем билеты после изменения фильтров
-function renderTicketsOnChangeFilters(checkboxes, ticketsArray) {
-  checkboxes.forEach((element) => {
-    element.addEventListener("change", function () {
-      clearTickets();
-      let filters = getFilters(checkboxes);
-      let filteredTickets = getFilteredTickets(ticketsArray, ...filters);
-      renderTickets(filteredTickets);
-    });
-  });
 }
