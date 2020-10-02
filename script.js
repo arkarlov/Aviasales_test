@@ -2,11 +2,15 @@
 
 window.onload = async function () {
   const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
+  const sortRadios = document.querySelectorAll(".input-default_radio");
+
   try {
     let ticketsModule = await import("./test-response.js"); // заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
 
     let filters = getFilters(filterCheckboxes);
+    let sortValue = getSortValue(sortRadios);
+
     renderTickets(getFilteredTickets(tickets, ...filters));
     renderTicketsOnChangeFilters(filterCheckboxes, tickets);
   } catch (error) {
@@ -120,6 +124,7 @@ function getFilteredTickets(ticketsArray, ...filters) {
     });
 
     let findedFilter = filters.find(
+      //использовал .find() чтобы не "придумывать" прерывание цикла
       (filter) =>
         (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
         (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
@@ -141,6 +146,20 @@ function getFilters(filterCheckboxes) {
     }
   });
   return result;
+}
+
+//получаем значение для сортировки билетов
+function getSortValue(sortRadios) {
+  for (let radio of sortRadios) {
+    if (radio.checked) {
+      return radio.value;
+    }
+  }
+}
+
+// сортировка массива билетов
+function sortTickets(ticketsArray, sortValue) {
+  return ticketsArray;
 }
 
 // отрисовываем билеты после изменения фильтров
