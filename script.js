@@ -9,17 +9,14 @@ window.onload = async function () {
     const tickets = await ticketsModule.getTickets();
 
     let filters = getFilters(filterCheckboxes);
-<<<<<<< HEAD
     let filteredTickets = getFilteredTickets(tickets, ...filters)
     renderTickets(filteredTickets);
     
-=======
     let sortValue = getSortValue(sortRadios);
 
     sortTickets(tickets, sortValue);
 
     renderTickets(getFilteredTickets(tickets, ...filters));
->>>>>>> sort
     renderTicketsOnChangeFilters(filterCheckboxes, tickets);
   } catch (error) {
     console.log(error.message);
