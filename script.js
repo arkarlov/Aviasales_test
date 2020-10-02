@@ -7,7 +7,9 @@ window.onload = async function () {
     const tickets = await ticketsModule.getTickets();
 
     let filters = getFilters(filterCheckboxes);
-    renderTickets(getFilteredTickets(tickets, ...filters));
+    let filteredTickets = getFilteredTickets(tickets, ...filters)
+    renderTickets(filteredTickets);
+    
     renderTicketsOnChangeFilters(filterCheckboxes, tickets);
   } catch (error) {
     console.log(error.message);
@@ -149,7 +151,8 @@ function renderTicketsOnChangeFilters(checkboxes, ticketsArray) {
     element.addEventListener("change", function () {
       clearTickets();
       let filters = getFilters(checkboxes);
-      renderTickets(getFilteredTickets(ticketsArray, ...filters));
+      let filteredTickets = getFilteredTickets(ticketsArray, ...filters);
+      renderTickets(filteredTickets);
     });
   });
 }
