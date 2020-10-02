@@ -2,14 +2,24 @@
 
 window.onload = async function () {
   const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
+  const sortRadios = document.querySelectorAll(".input-default_radio");
+
   try {
     let ticketsModule = await import("./test-response.js"); // заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
 
     let filters = getFilters(filterCheckboxes);
+<<<<<<< HEAD
     let filteredTickets = getFilteredTickets(tickets, ...filters)
     renderTickets(filteredTickets);
     
+=======
+    let sortValue = getSortValue(sortRadios);
+
+    sortTickets(tickets, sortValue);
+
+    renderTickets(getFilteredTickets(tickets, ...filters));
+>>>>>>> sort
     renderTicketsOnChangeFilters(filterCheckboxes, tickets);
   } catch (error) {
     console.log(error.message);
@@ -122,6 +132,7 @@ function getFilteredTickets(ticketsArray, ...filters) {
     });
 
     let findedFilter = filters.find(
+      //использовал .find() чтобы не "придумывать" прерывание цикла
       (filter) =>
         (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
         (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
@@ -143,6 +154,28 @@ function getFilters(filterCheckboxes) {
     }
   });
   return result;
+}
+
+//получаем значение для сортировки билетов
+function getSortValue(sortRadios) {
+  for (let radio of sortRadios) {
+    if (radio.checked) {
+      return radio.value;
+    }
+  }
+}
+
+// сортировка массива билетов
+function sortTickets(ticketsArray, sortValue) {
+  if (sortValue == "cheapest") {
+    return ticketsArray.sort((a, b) => a.price - b.price);
+  } else {
+    return ticketsArray.sort((a, b) => {
+      let aMaxDuration = Math.max(a.segments[0].duration, a.segments[1].duration);
+      let bMaxDuration = Math.max(b.segments[0].duration, b.segments[1].duration);
+      return aMaxDuration - bMaxDuration; //сравниваем максимальные значения duration из каждого билета
+    });
+  }
 }
 
 // отрисовываем билеты после изменения фильтров

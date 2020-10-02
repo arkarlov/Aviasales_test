@@ -186,7 +186,7 @@ const testResponce = {
           destination: "HKG",
           date: "2020-09-25T10:45:00.417",
           stops: [],
-          duration: 845,
+          duration: 270,
         },
         {
           origin: "HKG",
