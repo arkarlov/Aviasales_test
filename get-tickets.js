@@ -1,16 +1,15 @@
 "use strict";
 
-const url = "https://front-test.beta.aviasales.ru";
-
 export async function getTickets() {
-    let searchId = await getSearchId(url);
-    let tickets = await searchTickets(url, searchId);
+    let searchId = await getSearchId();
+    let tickets = await searchTickets(searchId);
     return tickets;
 }
 
 // отправляем запрос на сервер, получаем saercID
-async function getSearchId(url) {
-  let searchUrl = new URL("search", url);
+async function getSearchId() {
+  const searchUrl = "https://front-test.beta.aviasales.ru/search";
+  // let searchUrl = new URL("search", url);
   let response = await fetch(searchUrl);
   if (response.ok) {
     let json = await response.json();
@@ -21,8 +20,9 @@ async function getSearchId(url) {
 }
 
 // отправляем запрос на сервер, получаем пачку билетов
-async function getTicketsBundle(url, params) {
-  let ticketsUrl = new URL("tickets", url);
+async function getTicketsBundle(params) {
+  const url = "https://front-test.beta.aviasales.ru/tickets";
+  let ticketsUrl = new URL(url);
   ticketsUrl.searchParams.append("searchId", params.searchId);
   let response = await fetch(ticketsUrl);
   if (response.ok) {
@@ -35,12 +35,12 @@ async function getTicketsBundle(url, params) {
 }
 
 // ищем билеты, пока не получим responce.stop == true
-async function searchTickets(url, searchId) {
-  const response = await getTicketsBundle(url, searchId);
+async function searchTickets(searchId) {
+  const response = await getTicketsBundle(searchId);
   const tickets = [];
   tickets.push(...response.tickets);
   if (!response.stop) {
-    const response = await searchTickets(url, searchId);
+    const response = await searchTickets(searchId);
     tickets.push(...response.tickets);
   }
   return tickets;
