@@ -161,13 +161,9 @@ function getFilteredTickets(ticketsArray, ...filters) {
 
 //получаем массив фильтров из чекбоксов
 function getFilters(filterCheckboxes) {
-  let result = [];
-  filterCheckboxes.forEach((checkbox) => {
-    if (checkbox.checked) {
-      result.push(+checkbox.value);
-    }
-  });
-  return result;
+  console.log(filterCheckboxes);
+  let result = Array.from(filterCheckboxes).filter((checkbox) => checkbox.checked);
+  return result.map((checkbox) => +checkbox.value);
 }
 
 //получаем значение для сортировки билетов
