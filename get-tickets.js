@@ -1,8 +1,8 @@
 "use strict";
 
 export async function getTickets() {
-    let searchId = await getSearchId();
-    let tickets = await searchTickets(searchId);
+    const searchId = await getSearchId();
+    const tickets = await searchTickets(searchId);
     return tickets;
 }
 
@@ -10,10 +10,10 @@ export async function getTickets() {
 async function getSearchId() {
   const searchUrl = "https://front-test.beta.aviasales.ru/search";
   // let searchUrl = new URL("search", url);
-  let response = await fetch(searchUrl);
+  const response = await fetch(searchUrl);
   if (response.ok) {
-    let json = await response.json();
-    return json;
+    const json = await response.json();
+    return json.searchId;
   } else {
     throw new Error(json.error);
   }
@@ -22,11 +22,11 @@ async function getSearchId() {
 // отправляем запрос на сервер, получаем пачку билетов
 async function getTicketsBundle(params) {
   const url = "https://front-test.beta.aviasales.ru/tickets";
-  let ticketsUrl = new URL(url);
-  ticketsUrl.searchParams.append("searchId", params.searchId);
-  let response = await fetch(ticketsUrl);
+  const ticketsUrl = new URL(url);
+  ticketsUrl.searchParams.append("searchId", params);
+  const response = await fetch(ticketsUrl);
   if (response.ok) {
-    let json = await response.json();
+    const json = await response.json();
     return json;
   } else {
     console.log("getTicketsBundle error");
@@ -40,8 +40,8 @@ async function searchTickets(searchId) {
   const tickets = [];
   tickets.push(...response.tickets);
   if (!response.stop) {
-    const response = await searchTickets(searchId);
-    tickets.push(...response.tickets);
+    const ticketsBundle = await searchTickets(searchId);
+    tickets.push(...ticketsBundle);
   }
   return tickets;
 }

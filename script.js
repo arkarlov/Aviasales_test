@@ -5,8 +5,9 @@ window.onload = async function () {
   const sortRadios = document.querySelectorAll(".input-default_radio");
 
   try {
-    let ticketsModule = await import("./test-response.js"); // заменить на: "./get-tickets.js"
+    const ticketsModule = await import("./test-response.js"); // "./test-response.js" заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
+    console.log(tickets);
 
     let filters = getFilters(filterCheckboxes);
     let sortValue = getSortValue(sortRadios);
@@ -62,7 +63,7 @@ function renderOneTicket(ticketData) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(ticketData.price);
-  
+
   ticketLogo.src = `//pics.avs.io/99/36/${ticketData.carrier}.png`; // получаем logo.png авиакомпании из CDN
 
   // формируем и заполняем маршруты билета
@@ -139,30 +140,20 @@ function getFilteredTickets(ticketsArray, ...filters) {
   if (filters.includes(-1)) {
     return ticketsArray; //если выбран фильтр "все" - возвращаем весь массив билетов
   }
-  let result = ticketsArray.filter((ticket) => {
-    let stopsQuantity = [];
-    ticket.segments.forEach((element) => {
-      stopsQuantity.push(element.stops.length);
+  const result = ticketsArray.filter((ticket) => {
+    return filters.some(filter => {
+      return (ticket.segments.every(segment => segment.stops.length <= filter) &&
+      ticket.segments.some(segment => segment.stops.length == filter));
     });
-
-    //использовал .find() чтобы не "придумывать" прерывание цикла
-    let findedFilter = filters.find(
-      (filter) =>
-        (stopsQuantity[0] == filter && stopsQuantity[1] <= filter) ||
-        (stopsQuantity[0] <= filter && stopsQuantity[1] == filter)
-    );
-
-    if (findedFilter !== undefined) {
-      return true;
-    }
   });
   return result;
 }
 
 //получаем массив фильтров из чекбоксов
 function getFilters(filterCheckboxes) {
-  console.log(filterCheckboxes);
-  let result = Array.from(filterCheckboxes).filter((checkbox) => checkbox.checked);
+  let result = Array.from(filterCheckboxes).filter(
+    (checkbox) => checkbox.checked
+  );
   return result.map((checkbox) => +checkbox.value);
 }
 
@@ -181,8 +172,14 @@ function sortTickets(ticketsArray, sortValue) {
     return ticketsArray.sort((a, b) => a.price - b.price);
   } else {
     return ticketsArray.sort((a, b) => {
-      let aSumDuration = a.segments.reduce((sumDuration, segment) => sumDuration + segment.duration, 0);
-      let bSumDuration = b.segments.reduce((sumDuration, segment) => sumDuration + segment.duration, 0);
+      let aSumDuration = a.segments.reduce(
+        (sumDuration, segment) => sumDuration + segment.duration,
+        0
+      );
+      let bSumDuration = b.segments.reduce(
+        (sumDuration, segment) => sumDuration + segment.duration,
+        0
+      );
       return aSumDuration - bSumDuration; //сравниваем суммарные значения duration из каждого билета
     });
   }
