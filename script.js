@@ -49,12 +49,10 @@ function renderTickets(ticketsArray) {
 
 // отрисовываем один билет, ticketData - объект билета
 function renderOneTicket(ticketData) {
-  const carrierLogoUrl = `//pics.avs.io/99/36/${ticketData.carrier}.png`; // получаем logo.png авиакомпании из CDN
-
   const ticketTemplate = document.querySelector("#ticket-template").content; // получаем template
   const ticket = ticketTemplate.cloneNode(true); // создаем новый экзепляр template
   const ticketPrice = ticket.querySelector(".ticket__price");
-  const ticketLogo = ticket.querySelector(".ticket__logo");
+  const ticketLogo = ticket.querySelector("[data-item='carrier-logo']");
 
   ticketPrice.innerHTML = new Intl.NumberFormat("ru-RU", {
     //используем объект Intl для форматирования с учетом локали
@@ -64,7 +62,8 @@ function renderOneTicket(ticketData) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(ticketData.price);
-  ticketLogo.src = carrierLogoUrl;
+  
+  ticketLogo.src = `//pics.avs.io/99/36/${ticketData.carrier}.png`; // получаем logo.png авиакомпании из CDN
 
   // формируем и заполняем маршруты билета
   ticketData.segments.forEach((element) => {
