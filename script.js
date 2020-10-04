@@ -5,7 +5,7 @@ window.onload = async function () {
   const sortRadios = document.querySelectorAll(".input-default_radio");
 
   try {
-    const ticketsModule = await import("./test-response.js"); // "./test-response.js" заменить на: "./get-tickets.js"
+    const ticketsModule = await import("./get-tickets.js"); // "./test-response.js" заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
     console.log(tickets);
 
@@ -109,22 +109,27 @@ function renderOneTicket(ticketData) {
 
 // склоняем пересадку
 function defineQuantityStops(number) {
-  const words = ["без пересадок", "пересадка", "пересадки", "пересадок"];
-  let n =
-    (number >= 5 && number <= 20) ||
-    (number % 10 >= 5 && number % 10 <= 20) ||
-    (number != 0 && number % 10 == 0)
-      ? 3
-      : number % 10 == 1
-      ? 1
-      : number % 10 >= 2 && number % 10 <= 4
-      ? 2
-      : 0;
-  if (number == 0) {
-    return words[n];
-  } else {
-    return `${number} ${words[n]}`;
+  const words = ["пересадка", "пересадки", "пересадок"];
+  if (number === 0) {
+    return "без пересадок";
   }
+  return `${number} ${getNoun(number, ...words)}`;
+}
+
+function getNoun(number, one, two, five) {
+  let n = Math.abs(number);
+  n %= 100;
+  if (n >= 5 && n <= 20) {
+    return five;
+  }
+  n %= 10;
+  if (n === 1) {
+    return one;
+  }
+  if (n >= 2 && n <= 4) {
+    return two;
+  }
+  return five;
 }
 
 //удаляем все билеты
@@ -141,9 +146,11 @@ function getFilteredTickets(ticketsArray, ...filters) {
     return ticketsArray; //если выбран фильтр "все" - возвращаем весь массив билетов
   }
   const result = ticketsArray.filter((ticket) => {
-    return filters.some(filter => {
-      return (ticket.segments.every(segment => segment.stops.length <= filter) &&
-      ticket.segments.some(segment => segment.stops.length == filter));
+    return filters.some((filter) => {
+      return (
+        ticket.segments.every((segment) => segment.stops.length <= filter) &&
+        ticket.segments.some((segment) => segment.stops.length == filter)
+      );
     });
   });
   return result;
