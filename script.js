@@ -186,8 +186,8 @@ function sortTickets(ticketsArray, sortValue) {
     return ticketsArray.sort((a, b) => a.price - b.price);
   } else {
     return ticketsArray.sort((a, b) => {
-      let aSumDuration = a.segments[0].duration + a.segments[1].duration;
-      let bSumDuration = b.segments[0].duration + b.segments[1].duration;
+      let aSumDuration = a.segments.reduce((sumDuration, segment) => sumDuration + segment.duration, 0);
+      let bSumDuration = b.segments.reduce((sumDuration, segment) => sumDuration + segment.duration, 0);
       return aSumDuration - bSumDuration; //сравниваем суммарные значения duration из каждого билета
     });
   }
