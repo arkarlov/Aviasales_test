@@ -1,8 +1,8 @@
 "use strict";
 
 window.onload = async function () {
-  const filterCheckboxes = document.querySelectorAll(".input-default_checkbox");
-  const sortRadios = document.querySelectorAll(".input-default_radio");
+  const filterCheckboxes = document.querySelectorAll("[data-item='filter-option']");
+  const sortRadios = document.querySelectorAll("[data-item='sort-option']");
 
   try {
     const ticketsModule = await import("./get-tickets.js"); // "./test-response.js" заменить на: "./get-tickets.js"
