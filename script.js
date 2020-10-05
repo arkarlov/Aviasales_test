@@ -33,7 +33,6 @@ window.onload = async function () {
   }
 };
 
-
 //перерисовка билетов
 function renderSortedTickets(filteredTickets) {
   sortTickets(filteredTickets);

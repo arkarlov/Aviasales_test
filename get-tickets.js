@@ -2,8 +2,7 @@
 
 export async function getTickets() {
     const searchId = await getSearchId();
-    // const tickets = await searchTickets(searchId);
-    const tickets = (await getTicketsBundle(searchId)).tickets; // test single request
+    const tickets = await searchTickets(searchId);
     return tickets;
 }
 
