@@ -1,5 +1,6 @@
 "use strict";
 
+const TICKETS_SECTION = document.querySelector("[data-item='tickets-section']");
 const FILTER_OPTIONS = document.querySelectorAll("[data-item='filter-option']");
 const SORT_OPTIONS = document.querySelectorAll("[data-item='sort-option']");
 const FILTER_OPTION_ALL = -1;
@@ -52,9 +53,9 @@ function renderTickets(ticketsArray) {
 
 // отрисовываем один билет, ticketData - объект билета
 function renderOneTicket(ticketData) {
-  const ticketTemplate = document.querySelector("#ticket-template").content; // получаем template
+  const ticketTemplate = document.querySelector("[data-item='ticket-template']").content; // получаем template
   const ticket = ticketTemplate.cloneNode(true); // создаем новый экзепляр template
-  const ticketPrice = ticket.querySelector(".ticket__price");
+  const ticketPrice = ticket.querySelector("[data-item='ticket-price']");
   const ticketLogo = ticket.querySelector("[data-item='carrier-logo']");
 
   ticketPrice.innerHTML = new Intl.NumberFormat("ru-RU", {
@@ -70,13 +71,13 @@ function renderOneTicket(ticketData) {
 
   // формируем и заполняем маршруты билета
   ticketData.segments.forEach((element) => {
-    const routeTemplate = ticket.querySelector("#route-template").content;
+    const routeTemplate = ticket.querySelector("[data-item='route-template']").content;
     const ticketRoute = routeTemplate.cloneNode(true);
-    const routeTitle = ticketRoute.querySelector(".route-title");
-    const routeTime = ticketRoute.querySelector(".route-time");
-    const routeLenght = ticketRoute.querySelector(".route-lenght");
-    const routeSstopsCount = ticketRoute.querySelector(".route-stops-count");
-    const routeStops = ticketRoute.querySelector(".route-stops");
+    const routeTitle = ticketRoute.querySelector("[data-item='route-title']");
+    const routeTime = ticketRoute.querySelector("[data-item='route-time']");
+    const routeLenght = ticketRoute.querySelector("[data-item='route-lenght']");
+    const routeSstopsCount = ticketRoute.querySelector("[data-item='route-stops-count']");
+    const routeStops = ticketRoute.querySelector("[data-item='route-stops']");
 
     let routeDuration = {};
     routeDuration.mins = element.duration % 60;
@@ -106,7 +107,7 @@ function renderOneTicket(ticketData) {
     ticket.children[0].append(ticketRoute); // добавляем в потомка DocumentFragment HTMLCollection
   });
 
-  document.querySelector("#tickets-section").append(ticket); // добавляем заполненный экзепляр template в документ
+  TICKETS_SECTION.append(ticket); // добавляем заполненный экзепляр template в документ
 }
 
 // склоняем пересадку
@@ -136,9 +137,8 @@ function getNoun(number, one, two, five) {
 
 //удаляем все билеты
 function clearTickets() {
-  let ticketsSection = document.querySelector("#tickets-section");
-  while (ticketsSection.children.length > 1) {
-    ticketsSection.lastElementChild.remove();
+  while (TICKETS_SECTION.children.length > 1) {
+    TICKETS_SECTION.lastElementChild.remove();
   }
 }
 

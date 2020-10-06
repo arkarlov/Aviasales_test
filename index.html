@@ -111,30 +111,30 @@
           </label>
         </div>
         <!-- tickets -->
-        <section id="tickets-section" class="tickets">
-          <template id="ticket-template">
+        <section id="tickets-section" class="tickets" data-item="tickets-section">
+          <template id="ticket-template" data-item="ticket-template">
             <article class="tickets__item ticket">
               <header class="ticket__header">
-                <span class="ticket__price">13&nbsp;400&nbsp;&#8381;</span>
+                <span class="ticket__price" data-item="ticket-price">13&nbsp;400&nbsp;&#8381;</span>
                 <div class="ticket__logo">
                   <img src="img/S7 Logo.png" alt="carrier-logo" data-item="carrier-logo" class="carrier-logo"/>
                 </div>
               </header>
-              <template id="route-template">
+              <template id="route-template" data-item="route-template">
                 <div class="ticket__details ticket-route">
                   <div class="ticket-route__details">
-                    <p class="ticket-route__label route-title">MOW – HKT</p>
-                    <p class="ticket-route__value route-time">10:45 – 08:00</p>
+                    <p class="ticket-route__label" data-item="route-title">MOW – HKT</p>
+                    <p class="ticket-route__value" data-item="route-time">10:45 – 08:00</p>
                   </div>
                   <div class="ticket-route__details">
                     <p class="ticket-route__label">В пути</p>
-                    <p class="ticket-route__value route-lenght">21ч 15м</p>
+                    <p class="ticket-route__value" data-item="route-lenght">21ч 15м</p>
                   </div>
                   <div class="ticket-route__details">
-                    <p class="ticket-route__label route-stops-count">
+                    <p class="ticket-route__label" data-item="route-stops-count">
                       2 пересадки
                     </p>
-                    <p class="ticket-route__value route-stops">HKG, JNB</p>
+                    <p class="ticket-route__value" data-item="route-stops">HKG, JNB</p>
                   </div>
                 </div>
               </template>
