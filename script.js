@@ -163,7 +163,7 @@ function getFilters() {
   let result = Array.from(FILTER_OPTIONS).filter(
     (checkbox) => checkbox.checked
   );
-  return result.map((checkbox) => +checkbox.value);
+  return result.map((checkbox) => Number(checkbox.value));
 }
 
 //получаем значение для сортировки билетов
