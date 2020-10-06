@@ -1,33 +1,36 @@
 "use strict";
 
-const TICKETS_SECTION = document.querySelector("[data-item='tickets-section']");
-const FILTER_OPTIONS = document.querySelectorAll("[data-item='filter-option']");
-const SORT_OPTIONS = document.querySelectorAll("[data-item='sort-option']");
+
 const FILTER_OPTION_ALL = -1;
 
 window.onload = async function () {
+  
+  const TICKETS_SECTION = document.querySelector("[data-item='tickets-section']");
+  const FILTER_OPTIONS = document.querySelectorAll("[data-item='filter-option']");
+  const SORT_OPTIONS = document.querySelectorAll("[data-item='sort-option']");
+
   try {
     const ticketsModule = await import("./test-response.js"); // "./test-response.js" заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
     console.log(tickets);
 
-    const filters = getFilters();
+    const filters = getFilters(FILTER_OPTIONS);
     let filteredTickets = getFilteredTickets(tickets, ...filters);
-    renderSortedTickets(filteredTickets);
+    renderSortedTickets(filteredTickets, TICKETS_SECTION, SORT_OPTIONS);
 
     // отрисовываем билеты после изменения фильтров
     FILTER_OPTIONS.forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
-        const filters = getFilters();
+        const filters = getFilters(FILTER_OPTIONS);
         filteredTickets = getFilteredTickets(tickets, ...filters);
-        renderSortedTickets(filteredTickets);
+        renderSortedTickets(filteredTickets, TICKETS_SECTION, SORT_OPTIONS);
       });
     });
 
     // отрисовываем билеты после изменения сортировки
     SORT_OPTIONS.forEach((radio) => {
       radio.addEventListener("change", () => {
-        renderSortedTickets(filteredTickets);
+        renderSortedTickets(filteredTickets, TICKETS_SECTION, SORT_OPTIONS);
       });
     });
     
@@ -37,22 +40,22 @@ window.onload = async function () {
 };
 
 //перерисовка билетов
-function renderSortedTickets(filteredTickets) {
-  const sortValue = getSortValue();
+function renderSortedTickets(filteredTickets, ticketsSection, sortOptions) {
+  const sortValue = getSortValue(sortOptions);
   const sortedTickets = sortTickets(filteredTickets, sortValue);
-  clearTickets();
-  renderTickets(sortedTickets);
+  clearTickets(ticketsSection);
+  renderTickets(sortedTickets, ticketsSection);
 }
 
 // отрисовываем массив билетов
-function renderTickets(ticketsArray) {
-  ticketsArray.forEach((element) => {
-    renderOneTicket(element);
+function renderTickets(ticketsArray, ticketsSection) {
+  ticketsArray.forEach((ticket) => {
+    renderOneTicket(ticket, ticketsSection);
   });
 }
 
 // отрисовываем один билет, ticketData - объект билета
-function renderOneTicket(ticketData) {
+function renderOneTicket(ticketData, ticketsSection) {
   const ticketTemplate = document.querySelector("[data-item='ticket-template']").content; // получаем template
   const ticket = ticketTemplate.cloneNode(true); // создаем новый экзепляр template
   const ticketPrice = ticket.querySelector("[data-item='ticket-price']");
@@ -107,7 +110,7 @@ function renderOneTicket(ticketData) {
     ticket.children[0].append(ticketRoute); // добавляем в потомка DocumentFragment HTMLCollection
   });
 
-  TICKETS_SECTION.append(ticket); // добавляем заполненный экзепляр template в документ
+  ticketsSection.append(ticket); // добавляем заполненный экзепляр template в документ
 }
 
 // склоняем пересадку
@@ -136,9 +139,9 @@ function getNoun(number, one, two, five) {
 }
 
 //удаляем все билеты
-function clearTickets() {
-  while (TICKETS_SECTION.children.length > 1) {
-    TICKETS_SECTION.lastElementChild.remove();
+function clearTickets(ticketsSection) {
+  while (ticketsSection.children.length > 1) {
+    ticketsSection.lastElementChild.remove();
   }
 }
 
@@ -159,16 +162,16 @@ function getFilteredTickets(ticketsArray, ...filters) {
 }
 
 //получаем массив фильтров из чекбоксов
-function getFilters() {
-  let result = Array.from(FILTER_OPTIONS).filter(
+function getFilters(filterOptions) {
+  let result = Array.from(filterOptions).filter(
     (checkbox) => checkbox.checked
   );
   return result.map((checkbox) => Number(checkbox.value));
 }
 
 //получаем значение для сортировки билетов
-function getSortValue() {
-  for (let radio of SORT_OPTIONS) {
+function getSortValue(sortOptions) {
+  for (let radio of sortOptions) {
     if (radio.checked) {
       return radio.value;
     }
