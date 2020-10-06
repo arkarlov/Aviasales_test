@@ -10,13 +10,15 @@ window.onload = async function () {
     const tickets = await ticketsModule.getTickets();
     console.log(tickets);
 
-    let filteredTickets = getFilteredTickets(tickets);
+    const filters = getFilters();
+    let filteredTickets = getFilteredTickets(tickets, ...filters);
     renderSortedTickets(filteredTickets);
 
     // отрисовываем билеты после изменения фильтров
     FILTER_OPTIONS.forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
-        filteredTickets = getFilteredTickets(tickets);
+        const filters = getFilters();
+        filteredTickets = getFilteredTickets(tickets, ...filters);
         renderSortedTickets(filteredTickets);
       });
     });
@@ -35,9 +37,10 @@ window.onload = async function () {
 
 //перерисовка билетов
 function renderSortedTickets(filteredTickets) {
-  sortTickets(filteredTickets);
+  const sortValue = getSortValue();
+  const sortedTickets = sortTickets(filteredTickets, sortValue);
   clearTickets();
-  renderTickets(filteredTickets);
+  renderTickets(sortedTickets);
 }
 
 // отрисовываем массив билетов
@@ -140,8 +143,7 @@ function clearTickets() {
 }
 
 // выбираем билеты по количеству пересадок
-function getFilteredTickets(ticketsArray) {
-  const filters = getFilters();
+function getFilteredTickets(ticketsArray, ...filters) {
   if (filters.includes(FILTER_OPTION_ALL)) {
     return ticketsArray; //если выбран фильтр "все" - возвращаем весь массив билетов
   }
@@ -174,12 +176,12 @@ function getSortValue() {
 }
 
 // сортировка массива билетов
-function sortTickets(ticketsArray) {
-  const sortValue = getSortValue();
+function sortTickets(ticketsArray, sortValue) {
+  const sortedTickets = [...ticketsArray];
   if (sortValue == "cheapest") {
-    return ticketsArray.sort((a, b) => a.price - b.price);
+    return sortedTickets.sort((a, b) => a.price - b.price);
   } else {
-    return ticketsArray.sort((a, b) => {
+    return sortedTickets.sort((a, b) => {
       let aSumDuration = a.segments.reduce(
         (sumDuration, segment) => sumDuration + segment.duration,
         0
