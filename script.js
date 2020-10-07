@@ -1,12 +1,14 @@
 "use strict";
 
-
 const FILTER_OPTION_ALL = -1;
 
 window.onload = async function () {
-  
-  const TICKETS_SECTION = document.querySelector("[data-item='tickets-section']");
-  const FILTER_OPTIONS = document.querySelectorAll("[data-item='filter-option']");
+  const TICKETS_SECTION = document.querySelector(
+    "[data-item='tickets-section']"
+  );
+  const FILTER_OPTIONS = document.querySelectorAll(
+    "[data-item='filter-option']"
+  );
   const SORT_OPTIONS = document.querySelectorAll("[data-item='sort-option']");
 
   try {
@@ -21,6 +23,7 @@ window.onload = async function () {
     // отрисовываем билеты после изменения фильтров
     FILTER_OPTIONS.forEach((checkbox) => {
       checkbox.addEventListener("change", function () {
+        setFiltersBehavior(FILTER_OPTIONS, checkbox);
         const filters = getFilters(FILTER_OPTIONS);
         filteredTickets = getFilteredTickets(tickets, ...filters);
         renderSortedTickets(filteredTickets, TICKETS_SECTION, SORT_OPTIONS);
@@ -33,7 +36,6 @@ window.onload = async function () {
         renderSortedTickets(filteredTickets, TICKETS_SECTION, SORT_OPTIONS);
       });
     });
-    
   } catch (error) {
     console.log(error.message);
   }
@@ -56,7 +58,8 @@ function renderTickets(ticketsArray, ticketsSection) {
 
 // отрисовываем один билет, ticketData - объект билета
 function renderOneTicket(ticketData, ticketsSection) {
-  const ticketTemplate = document.querySelector("[data-item='ticket-template']").content; // получаем template
+  const ticketTemplate = document.querySelector("[data-item='ticket-template']")
+    .content; // получаем template
   const ticket = ticketTemplate.cloneNode(true); // создаем новый экзепляр template
   const ticketPrice = ticket.querySelector("[data-item='ticket-price']");
   const ticketLogo = ticket.querySelector("[data-item='carrier-logo']");
@@ -74,12 +77,15 @@ function renderOneTicket(ticketData, ticketsSection) {
 
   // формируем и заполняем маршруты билета
   ticketData.segments.forEach((element) => {
-    const routeTemplate = ticket.querySelector("[data-item='route-template']").content;
+    const routeTemplate = ticket.querySelector("[data-item='route-template']")
+      .content;
     const ticketRoute = routeTemplate.cloneNode(true);
     const routeTitle = ticketRoute.querySelector("[data-item='route-title']");
     const routeTime = ticketRoute.querySelector("[data-item='route-time']");
     const routeLenght = ticketRoute.querySelector("[data-item='route-lenght']");
-    const routeSstopsCount = ticketRoute.querySelector("[data-item='route-stops-count']");
+    const routeSstopsCount = ticketRoute.querySelector(
+      "[data-item='route-stops-count']"
+    );
     const routeStops = ticketRoute.querySelector("[data-item='route-stops']");
 
     let routeDuration = {};
@@ -163,9 +169,7 @@ function getFilteredTickets(ticketsArray, ...filters) {
 
 //получаем массив фильтров из чекбоксов
 function getFilters(filterOptions) {
-  let result = Array.from(filterOptions).filter(
-    (checkbox) => checkbox.checked
-  );
+  let result = Array.from(filterOptions).filter((checkbox) => checkbox.checked);
   return result.map((checkbox) => Number(checkbox.value));
 }
 
@@ -195,5 +199,47 @@ function sortTickets(ticketsArray, sortValue) {
       );
       return aSumDuration - bSumDuration; //сравниваем суммарные значения duration из каждого билета
     });
+  }
+}
+
+function setFiltersBehavior(filterOptions, changedFilter) {
+  const filters = Array.from(filterOptions);
+  const filterOptionAll = filters.find((filter) => filter.value === "-1");
+  const filterOptionsOther = filters.filter(
+    (filterOption) => filterOption.value !== "-1"
+  );
+
+  switch (changedFilter.value) {
+    case "-1":
+      if (changedFilter.checked) {
+        filterOptionsOther.forEach(
+          (filterOption) => (filterOption.checked = true)
+        );
+      }
+      if (changedFilter.checked === false) {
+        filterOptionsOther.forEach(
+          (filterOption) => (filterOption.checked = false)
+        );
+      }
+      break;
+
+    default:
+      if (
+        filterOptionAll.checked === false &&
+        filterOptionsOther.every(
+          (filterOption) => filterOption.checked === true
+        )
+      ) {
+        filterOptionAll.checked = true;
+      }
+      if (
+        filterOptionAll.checked === true &&
+        filterOptionsOther.some(
+          (filterOption) => filterOption.checked === false
+        )
+      ) {
+        filterOptionAll.checked = false;
+      }
+      break;
   }
 }
