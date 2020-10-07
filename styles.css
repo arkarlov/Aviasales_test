@@ -168,7 +168,7 @@ body {
   color: #ffffff;
 }
 
-.sort-box__item:hover .sort-box__text {
+.sort-box__item:hover .input-default_radio:not(:checked) + .sort-box__text {
   background-color: #f1fcff;
   border-color: #2196f3;
 }
@@ -212,7 +212,12 @@ body {
 }
 
 .ticket__logo {
+  width: 110px;
   margin-right: 30px;
+}
+
+.carrier-logo {
+  display: block;
 }
 
 .ticket__details {
