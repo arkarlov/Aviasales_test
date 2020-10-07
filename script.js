@@ -14,7 +14,6 @@ window.onload = async function () {
   try {
     const ticketsModule = await import("./test-response.js"); // "./test-response.js" заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
-    console.log(tickets);
 
     const filters = getFilters(FILTER_OPTIONS);
     let filteredTickets = getFilteredTickets(tickets, ...filters);
@@ -202,28 +201,37 @@ function sortTickets(ticketsArray, sortValue) {
   }
 }
 
+//определяем поведение checkbox-ов
 function setFiltersBehavior(filterOptions, changedFilter) {
   const filters = Array.from(filterOptions);
-  const filterOptionAll = filters.find((filter) => filter.value === "-1");
+  //определяем фильтр "Все"
+  const filterOptionAll = filters.find(
+    (filterOption) => Number(filterOption.value) === FILTER_OPTION_ALL
+  );
+  //определяем массив фильтров за исключением фильтра "Все"
   const filterOptionsOther = filters.filter(
-    (filterOption) => filterOption.value !== "-1"
+    (filterOption) => Number(filterOption.value) !== FILTER_OPTION_ALL
   );
 
-  switch (changedFilter.value) {
-    case "-1":
+  switch (Number(changedFilter.value)) {
+    //при изменении фильтра "Все"
+    case FILTER_OPTION_ALL:
+      //если пользователь выбрал фильтр "Все" - выбираем все фильтры
       if (changedFilter.checked) {
         filterOptionsOther.forEach(
           (filterOption) => (filterOption.checked = true)
         );
       }
+      //если пользователь снял фильтр "Все" - снимаем все фильтры
       if (changedFilter.checked === false) {
         filterOptionsOther.forEach(
           (filterOption) => (filterOption.checked = false)
         );
       }
       break;
-
+    //при изменении остальных фильтров
     default:
+      //если пользователь выбрал все фильтры - то выбираем фильтр "Все"
       if (
         filterOptionAll.checked === false &&
         filterOptionsOther.every(
@@ -232,6 +240,7 @@ function setFiltersBehavior(filterOptions, changedFilter) {
       ) {
         filterOptionAll.checked = true;
       }
+      //если выбраны все фильтры и пользователь снимает фильтр - снимаем фильтр "Все"
       if (
         filterOptionAll.checked === true &&
         filterOptionsOther.some(

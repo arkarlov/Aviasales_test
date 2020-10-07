@@ -1,15 +1,16 @@
 "use strict";
 
+const API_HOST = "https://front-test.beta.aviasales.ru";
+
 export async function getTickets() {
-    const searchId = await getSearchId();
-    const tickets = await searchTickets(searchId);
-    return tickets;
+  const searchId = await getSearchId();
+  const tickets = await searchTickets(searchId);
+  return tickets;
 }
 
 // отправляем запрос на сервер, получаем saercID
 async function getSearchId() {
-  const searchUrl = "https://front-test.beta.aviasales.ru/search";
-  // let searchUrl = new URL("search", url);
+  const searchUrl = new URL("search", API_HOST);
   const response = await fetch(searchUrl);
   if (response.ok) {
     const json = await response.json();
@@ -21,8 +22,7 @@ async function getSearchId() {
 
 // отправляем запрос на сервер, получаем пачку билетов
 async function getTicketsBundle(params) {
-  const url = "https://front-test.beta.aviasales.ru/tickets";
-  const ticketsUrl = new URL(url);
+  const ticketsUrl = new URL("tickets", API_HOST);
   ticketsUrl.searchParams.append("searchId", params);
   const response = await fetch(ticketsUrl);
   if (response.ok) {
