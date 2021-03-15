@@ -28,7 +28,11 @@ async function getTicketsBundle(params) {
   if (response.ok) {
     const json = await response.json();
     return json;
-  } else {
+  }
+  // else if (response.status === 500) {
+  //   return await getTicketsBundle(params);
+  // }
+  else {
     console.log("getTicketsBundle error");
     // throw new Error(json.error);
   }
