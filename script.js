@@ -12,7 +12,7 @@ window.onload = async function () {
   const SORT_OPTIONS = document.querySelectorAll("[data-item='sort-option']");
 
   try {
-    const ticketsModule = await import("./get-tickets.js"); // "./test-response.js" заменить на: "./get-tickets.js"
+    const ticketsModule = await import("./test-response.js"); // "./test-response.js" заменить на: "./get-tickets.js"
     const tickets = await ticketsModule.getTickets();
     console.log(tickets);
 
